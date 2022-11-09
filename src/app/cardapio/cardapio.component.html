@@ -1,0 +1,17 @@
+
+<section class="cardapio__header">
+  <div class="cardapio__header-titulo">{{ titulo }}</div>
+  <div *ngIf="escolhaAte > '1'">Escolha até {{ escolhaAte }} <span *ngIf="selecionados > 0">({{ selecionados }} selecionados)</span></div>
+</section>
+<div class="cardapio__body" *ngFor="let item of opcoes">
+  <div *ngIf="escolhaAte == '1' else complementos">
+    <div class="cardapio__body__subItem">
+      <input type="radio" name="tamanho" />{{item}}
+    </div>
+  </div>
+  <ng-template #complementos>
+    <div class="cardapio__body__subItem">
+      <input class="complementos" type="checkbox" name="complementos" (click)="marcar($event)" />{{item}}
+    </div>
+  </ng-template>
+</div>

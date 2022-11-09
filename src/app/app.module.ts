@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CardapioComponent } from './cardapio/cardapio.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardapioComponent
   ],
   imports: [
     BrowserModule,
