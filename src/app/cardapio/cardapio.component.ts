@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardapioComponent implements OnInit {
 
-  @Input() escolhaAte: string = "";
+  @Input() escolhaAte: number = 0;
   @Input() titulo: string = "";
   @Input() opcoes: string[] = [];
   selecionados = 0;
@@ -19,7 +19,7 @@ export class CardapioComponent implements OnInit {
   }
 
   marcar(e: any) {
-    if (this.selecionados <= parseInt(this.escolhaAte) && this.selecionados >= 0) {
+    if (this.selecionados <= this.escolhaAte && this.selecionados >= 0) {
       if (e.target.checked) {
         this.selecionados++;
       } else {
