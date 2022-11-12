@@ -10,6 +10,7 @@ export class CardapioComponent implements OnInit {
   @Input() escolhaAte: number = 0;
   @Input() titulo: string = "";
   @Input() opcoes: string[] = [];
+  @Input() opcoesSelecionadas: string[] = [];
   selecionados = 0;
   limite = false;
 
@@ -18,31 +19,22 @@ export class CardapioComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  marcar(e: any) {
-    if (this.selecionados <= this.escolhaAte && this.selecionados >= 0) {
-      if (e.target.checked) {
-        this.selecionados++;
-      } else {
-        this.selecionados--;
-      }
+  marcar(e: string) {
+    const idx = this.opcoesSelecionadas.indexOf(e);
+
+    if (idx === -1) {
+      this.opcoesSelecionadas.push(e);
     } else {
-      e.target.checked = false;
-    }
-
-    if (this.selecionados >= 3) {
-      let checks = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
-
-      for (let i = 0; i < checks.length; i++) {
-        checks[i].setAttribute("disabled", "");
-      }
-    } else {
-      let checks = document.querySelectorAll('input[type="checkbox"]:disabled');
-
-      for (let i = 0; i < checks.length; i++) {
-        checks[i].removeAttribute("disabled");
-      }
+      this.opcoesSelecionadas.splice(idx, 1);
     }
   }
 
+  opcaoSelecionada(o: string) {
+    return this.opcoesSelecionadas.indexOf(o) !== -1;
+  }
+
+  opcaoHabilitada(o: string) {
+    return this.opcaoSelecionada(o) || !(this.opcoesSelecionadas.length >= this.escolhaAte);
+  }
 
 }

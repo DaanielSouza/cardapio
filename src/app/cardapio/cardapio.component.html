@@ -1,7 +1,12 @@
-
 <section class="cardapio__header">
   <div class="cardapio__header-titulo">{{ titulo }}</div>
-  <div *ngIf="escolhaAte > 1">Escolha até {{ escolhaAte }} <span *ngIf="selecionados > 0">({{ selecionados }} selecionados)</span></div>
+  <div *ngIf="escolhaAte > 1">Escolha até {{ escolhaAte }}
+    <span [ngSwitch]="opcoesSelecionadas.length">
+      <span *ngSwitchCase="1">( 1 selecionada)</span>
+      <span *ngSwitchCase="2">( 2 selecionada)</span>
+      <span *ngSwitchCase="3">( 3 selecionadas)</span>
+    </span>
+  </div>
 </section>
 <div class="cardapio__body" *ngFor="let item of opcoes">
   <div *ngIf="escolhaAte == 1 else complementos">
@@ -11,7 +16,11 @@
   </div>
   <ng-template #complementos>
     <div class="cardapio__body__subItem">
-      <input class="complementos" type="checkbox" name="complementos" (click)="marcar($event)" />{{item}}
+      <input class="complementos" type="checkbox"
+      (change)="marcar(item)"
+      [checked]="opcaoSelecionada(item)"
+      [disabled]="!opcaoHabilitada(item)"
+      name="complementos" />{{item}}
     </div>
   </ng-template>
 </div>
